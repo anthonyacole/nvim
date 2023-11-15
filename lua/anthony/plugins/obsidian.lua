@@ -6,7 +6,7 @@ return {
     "nvim-lua/plenary.nvim",
   },
   opts = {
-    dir = "~/Nextcloud/Notes/2023-Vault", -- no need to call 'vim.fn.expand' here
+    dir = "~/Docs/Notes/2023-Vault", -- no need to call 'vim.fn.expand' here
     notes_subdir = "Notes",
     daily_notes = {
       folder = "Day Planners",
