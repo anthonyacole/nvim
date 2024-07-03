@@ -76,6 +76,13 @@ return {
       on_attach = on_attach,
     })
 
+    lspconfig.rust_analyzer.setup({
+      -- Server-specific settings. See `:help lspconfig-setup`
+      settings = {
+        ["rust-analyzer"] = {},
+      },
+    })
+
     -- configure typescript server with plugin
     lspconfig["tsserver"].setup({
       capabilities = capabilities,
@@ -90,12 +97,6 @@ return {
 
     -- configure tailwindcss server
     lspconfig["tailwindcss"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
-
-    lspconfig["omnisharp"].setup({
-      cmd = { "dotnet", "/home/anthony/.local/share/nvim/mason/packages/omnisharp/libexec/OmniSharp.dll" },
       capabilities = capabilities,
       on_attach = on_attach,
     })

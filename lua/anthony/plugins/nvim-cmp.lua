@@ -60,5 +60,8 @@ return {
         { name = "buffer" },
       },
     })
+
+    -- Disable folding on dbout buffer
+    vim.cmd([[autocmd FileType dbout setlocal nofoldenable]])
   end,
 }
