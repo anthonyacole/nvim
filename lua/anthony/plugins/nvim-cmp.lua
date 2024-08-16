@@ -35,7 +35,13 @@ return {
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
         ["<C-e>"] = cmp.mapping.abort(), -- close completion window
-        ["<CR>"] = cmp.mapping.confirm({ select = false }),
+        ["<CR>"] = cmp.mapping(function(fallback)
+           if cmp.visible() then
+             cmp.confirm({ select = true })
+           else
+             fallback() -- This is important to allow the <CR> key to work normally when completion is not active
+           end
+         end, {"i", "s"}),
       }),
       -- sources for autocompletion
       sources = cmp.config.sources({

@@ -6,13 +6,10 @@ return {
     "nvim-lua/plenary.nvim",
   },
   opts = {
-    dir = "~/Docs/Notes/2023-Vault", -- no need to call 'vim.fn.expand' here
-    notes_subdir = "Notes",
-    daily_notes = {
-      folder = "Day Planners",
-    },
+    dir = "~/Docs/Notes/2024-Vault", -- no need to call 'vim.fn.expand' here
+    notes_subdir = "01 - inbox",
     templates = {
-      subdir = "Templates",
+      subdir = "04 - templates",
       date_format = "%Y-%m-%d",
       time_format = "%H:%M",
       -- A map for custom variables, the key should be the variable and the value a function
@@ -23,6 +20,13 @@ return {
   mappings = {},
 
   vim.keymap.set("n", "<leader>os", "<Cmd>ObsidianQuickSwitch<CR>", { desc = "[Obsidian] Quick Search" }),
-  vim.keymap.set("n", "<leader>ot", "<Cmd>ObsidianToday<CR>", { desc = "[Obsidian] Today's Note" }),
-  vim.keymap.set("n", "<leader>oy", "<Cmd>ObsidianYesterday<CR>", { desc = "[Obsidian] Yesterday's Note" }),
+  vim.keymap.set(
+    "n",
+    "<leader>ok",
+    ':!mv "%:p" "$HOME/Docs/Notes/2024-Vault/02 - zettlekasten/"<cr>:bd<cr>',
+    { desc = "[Obsidian] Move note to vault" }
+  ),
+  vim.keymap.set("n", "<leader>odd", ":!rm '%:p'<cr>:bd<cr>", { desc = "[Obsidian] Delete note" }),
+  vim.keymap.set("n", "<leader>ot", ":ObsidianTemplate note<cr> :lua vim.cmd([[1,/^\\S/s/^\\n\\{1,}//]])<cr>"),
+  vim.keymap.set("n", "<leader>of", ":s/\\(# \\)[^_]*_/\\1/ | s/-/ /g<cr>"),
 }

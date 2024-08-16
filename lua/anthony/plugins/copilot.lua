@@ -6,7 +6,7 @@ return {
   config = function()
     local cmp = require("cmp")
 
-    cmp.event:on("confirm_done", cmp.mapping.confirm({ select = false }))
+   -- cmp.event:on("confirm_done", cmp.mapping.confirm({ select = false }))
 
     vim.api.nvim_set_keymap("i", "<C-Space>", "copilot#Accept()", { expr = true })
     vim.api.nvim_set_keymap("i", "<C-e>", "copilot#Cycle()", { expr = true })
