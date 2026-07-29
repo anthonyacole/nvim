@@ -6,10 +6,7 @@ return {
     { "antosha417/nvim-lsp-file-operations", config = true },
   },
   config = function()
-    -- import lspconfig plugin
-    local lspconfig = require("lspconfig")
-
-    -- import cmp-nvim-lsp plugin
+    -- import cmp-nvim-lsp plugin for capabilities
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
     local keymap = vim.keymap -- for conciseness
@@ -63,49 +60,50 @@ return {
     local capabilities = cmp_nvim_lsp.default_capabilities()
 
     -- Change the Diagnostic symbols in the sign column (gutter)
-    -- (not in youtube nvim video)
-    local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
+    local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
     for type, icon in pairs(signs) do
       local hl = "DiagnosticSign" .. type
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
     end
 
     -- configure html server
-    lspconfig["html"].setup({
+    vim.lsp.config.html = {
       capabilities = capabilities,
       on_attach = on_attach,
-    })
+    }
 
-    lspconfig.rust_analyzer.setup({
-      -- Server-specific settings. See `:help lspconfig-setup`
+    -- configure rust analyzer
+    vim.lsp.config.rust_analyzer = {
+      capabilities = capabilities,
+      on_attach = on_attach,
       settings = {
         ["rust-analyzer"] = {},
       },
-    })
+    }
 
-    -- configure typescript server with plugin
-    lspconfig["ts_ls"].setup({
+    -- configure typescript server
+    vim.lsp.config.ts_ls = {
       capabilities = capabilities,
       on_attach = on_attach,
-    })
+    }
 
     -- configure css server
-    lspconfig["cssls"].setup({
+    vim.lsp.config.cssls = {
       capabilities = capabilities,
       on_attach = on_attach,
-    })
+    }
 
     -- configure tailwindcss server
-    lspconfig["tailwindcss"].setup({
+    vim.lsp.config.tailwindcss = {
       capabilities = capabilities,
       on_attach = on_attach,
-    })
+    }
 
     -- configure lua server (with special settings)
-    lspconfig["lua_ls"].setup({
+    vim.lsp.config.lua_ls = {
       capabilities = capabilities,
       on_attach = on_attach,
-      settings = { -- custom settings for lua
+      settings = {
         Lua = {
           -- make the language server recognize "vim" global
           diagnostics = {
@@ -120,6 +118,9 @@ return {
           },
         },
       },
-    })
+    }
+
+    -- Enable the LSP servers
+    vim.lsp.enable({ "html", "rust_analyzer", "ts_ls", "cssls", "tailwindcss", "lua_ls" })
   end,
 }
